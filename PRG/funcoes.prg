@@ -14,19 +14,7 @@ Endproc
 
 
 
-Procedure errHandler
-	Parameter merror, Mess, mess1, mprog, mlineno
-	Clear
-	Messagebox('Error number: ' + Ltrim(Str(merror)) + Chr(13) + Chr(10) + ;
-		'Error message: ' + Mess + Chr(13) + Chr(10) + ;
-		'Line of code with error: ' + mess1 + Chr(13) + Chr(10) + ;
-		'Line number of error: ' + Ltrim(Str(mlineno)) + Chr(13) + Chr(10) + ;
-		'Program with error: ' + mprog + Chr(13) + Chr(10) ;
-		, 48, "Atenção-Error!")
 
-	Sair()
-
-Endproc
 
 Procedure ExecutarSemRestricoes
 	Lparameter lcComando, lcAcao, lcParams

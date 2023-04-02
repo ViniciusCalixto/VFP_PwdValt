@@ -28,49 +28,97 @@
 *!*	?lcString
 
 _Screen.Visible = .F.
+
+_Screen.Icon = 'IMG\ICO\KEYS.ICO'
 SetarFuncoes()
 SetarVariaveisPublicas()
 
-On Error Do errHandler With ;
-	ERROR( ), Message( ), Message(1), Program( ), Lineno( )
-*Use nodatabase
-On Error  && Restores system error handler.
+
 
 *On Key Label Alt+F4 Do Sair
 On Shutdown Do Sair
+Do Form Frm_Splash.scx
 
-Do Form vfpcalixto\vfp_geradordesenhas\frm\Frm_Splash.scx
 Read Events
 On Shutdown
 
 Procedure SetarFuncoes
-	SET SAFETY off
-	SET EXACT on
-	SET CENTURY on
-	
-	Set Procedure To vfpcalixto\vfp_geradordesenhas\PRG\Funcoes.prg
-	Set Procedure To vfpcalixto\vfp_geradordesenhas\PRG\MoverBarraDeTitulo.prg additive
-	
+	Set Exact On
+	Set Resource To
+	Set Bell On
+	Set Console Off
+	Set Talk Off
+	Set Date BRITISH
+	Set Century On
+	Set Status Bar On
+	Set Safety Off
+	Set Help On
+	Set Hours To 24
+	Set Deleted On
+	Set Multilocks On
+	Set Refresh To 4,2 && Refresh wait 4 sec on network, 2 sec local
+	Set Exclusive Off
+	Set Escape Off && Allow exit via Escape key
+	Set Memowidth To 80 && Set width of memo fields printing to 80
+	Set Carry Off && New records are blank
+	Set Reprocess To 25 && Number of times to attempt locking
+	Set Sysmenu Off
+
+	Public c_netpath, c_root
+	c_netpath	= Sys(5)+Curdir()
+	c_root		= Sys(5)+Curdir()
+
+	Set Default To &c_netpath
+	Set Path To &c_root
+
+
+	On Error Do errHandler With Error( ), Message( ), Message(1), Program( ), Lineno( )
+
+	Set Procedure To Funcoes.prg
+	Set Procedure To MoverBarraDeTitulo.prg Additive
+
 Endproc
 
 Procedure SetarVariaveisPublicas
-	setarVariaveisDarkMode()	
+	setarVariaveisDarkMode()
+
+	Public xNomeUsuario, xSobreUsuario, xlogin, xEmailLogin, xLoginAtivo
+
+	xLoginAtivo		= .F.
+	xNomeUsuario  	= 'Padrão'
+	xSobreUsuario 	= ''
+	xlogin			= 'padrao'
+	xEmailLogin 	= 'padrao@padrao.com'
+
 Endproc
 
 Procedure setarVariaveisDarkMode
 	Public xDarkMode, xBackColor, xBorderColor, ;
-	xForeColor, xMouseEnterBackColor, xBackColorForm, ;
-	xBorderColorLine, xBackColorScreen
+		xForeColor, xMouseEnterBackColor, xBackColorForm, ;
+		xBorderColorLine, xBackColorScreen
 
 	*
 	xDarkMode = File(Addbs(Sys(2003)) + 'DarkMode.txt')
-	
+
 	xBackColorScreen		= Iif(xDarkMode, '128,128,128', '237,157,157')
 	xBackColor 	 			= Iif(xDarkMode, '50,50,50', '223,95,95')
 	xBorderColor 			= Iif(xDarkMode, '50,50,50', '223,95,95')
 	xForeColor	 			= Iif(xDarkMode, '255,255,255', '0,0,0')
 	xMouseEnterBackColor 	= Iif(xDarkMode, '192,192,192','235,152,152')
-	
+
 	xBackColorForm 			= Iif(xDarkMode, '80,80,80', '255,255,255')
 	xBorderColorLine		= Iif(xDarkMode,  '192,192,192','235,152,152')
+Endproc
+
+Procedure errHandler
+	Parameter merror, Mess, mess1, mprog, mlineno
+	Messagebox('Error number: ' + Ltrim(Str(merror)) + Chr(13) + Chr(10) + ;
+		'Error message: ' + Mess + Chr(13) + Chr(10) + ;
+		'Line of code with error: ' + mess1 + Chr(13) + Chr(10) + ;
+		'Line number of error: ' + Ltrim(Str(mlineno)) + Chr(13) + Chr(10) + ;
+		'Program with error: ' + mprog + Chr(13) + Chr(10) ;
+		, 48, "Atenção-Error!")
+
+	Sair()
+
 Endproc

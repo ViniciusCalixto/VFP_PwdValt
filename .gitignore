@@ -3,3 +3,6 @@
 foxuser.dbf
 foxuser.fpt
 *.exe
+*_ref.dbf
+*_ref.cdx
+*_ref.fpt
