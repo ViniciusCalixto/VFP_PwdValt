@@ -51,3 +51,20 @@ Procedure ExecutarSemRestricoes
 		lcAcao, lcComando, ;
 		lcParams, Sys(2023), 1)
 Endproc
+
+Function GerarCaracteresAleatorios
+	Lparameters lnQTDChar
+
+	lnQTDChar = Iif(Upper(Alltrim(Vartype(lnQTDChar))) == 'N' and lnQTDChar > 0, lnQTDChar, 1)
+
+	Local m.lcString, m.lnPassLength
+	m.lcString 		= ""
+	m.lnPassLength 	= lnQTDChar
+
+	For i = 1 To lnPassLength
+		m.lnRandom = Rand() * 94 + 33
+		m.lcString = m.lcString + Chr(m.lnRandom)
+	Endfor
+
+	Return lcString
+Endfunc
