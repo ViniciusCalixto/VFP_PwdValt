@@ -27,8 +27,11 @@
 *!*	Endif
 *!*	?lcString
 
-_Screen.Visible = .F.
-
+_Screen.Visible 	= .F.
+_Screen.windowstate = 2
+_Screen.minWidth 	= 720
+_Screen.minheight	= 96
+_Screen.Caption		= 'PWD Vault'
 _Screen.Icon = 'IMG\ICO\KEYS.ICO'
 SetarFuncoes()
 SetarVariaveisPublicas()
@@ -63,6 +66,7 @@ Procedure SetarFuncoes
 	Set Carry Off && New records are blank
 	Set Reprocess To 25 && Number of times to attempt locking
 	Set Sysmenu Off
+	SET CLOCK status
 
 	Public c_netpath, c_root
 	c_netpath	= Sys(5)+Curdir()
@@ -77,11 +81,13 @@ Procedure SetarFuncoes
 	Set Procedure To Funcoes.prg
 	Set Procedure To MoverBarraDeTitulo.prg Additive
 
+	Set Library To vfpencryption.fll Additive
+	Set Library To vfpencryption71.fll Additive
 Endproc
 
 Procedure SetarVariaveisPublicas
 	setarVariaveisDarkMode()
-
+	chaveencrydecry()
 	Public xNomeUsuario, xSobreUsuario, xlogin, xEmailLogin, xLoginAtivo
 
 	xLoginAtivo		= .F.
@@ -95,7 +101,8 @@ Endproc
 Procedure setarVariaveisDarkMode
 	Public xDarkMode, xBackColor, xBorderColor, ;
 		xForeColor, xMouseEnterBackColor, xBackColorForm, ;
-		xBorderColorLine, xBackColorScreen
+		xBorderColorLine, xBackColorScreen, ;
+		xDisabledForeColor, xDisabledBackColor, xBorderColorLineText
 
 	*
 	xDarkMode = File(Addbs(Sys(2003)) + 'DarkMode.txt')
@@ -104,10 +111,15 @@ Procedure setarVariaveisDarkMode
 	xBackColor 	 			= Iif(xDarkMode, '50,50,50', '223,95,95')
 	xBorderColor 			= Iif(xDarkMode, '50,50,50', '223,95,95')
 	xForeColor	 			= Iif(xDarkMode, '255,255,255', '0,0,0')
+	
+	xDisabledBackColor 		= Iif(xDarkMode, '100,100,100', '235,152,152') &&'192,192,192'
+	xDisabledForeColor	 	= Iif(xDarkMode, '192,192,192', '128,128,128')
+	
 	xMouseEnterBackColor 	= Iif(xDarkMode, '192,192,192','235,152,152')
 
 	xBackColorForm 			= Iif(xDarkMode, '80,80,80', '255,255,255')
 	xBorderColorLine		= Iif(xDarkMode,  '192,192,192','235,152,152')
+	xBorderColorLineText	= Iif(xDarkMode,  '192,192,192','235,152,152')
 Endproc
 
 Procedure errHandler
@@ -121,4 +133,27 @@ Procedure errHandler
 
 	Sair()
 
-Endproc
+ENDPROC
+
+Procedure chaveEncrydecry
+	Public xChavePublicaEncDec
+
+	xChavePublicaEncDec = 'DeuErro'
+
+	Try
+		xChavePublicaEncDec = ALLTRIM(Filetostr(Addbs(Sys(2003)) + 'songrim.dll'))
+	Catch
+	Endtry
+ENDPROC
+
+Function Criptografar
+	Lparameters lcstring
+
+	Return Encrypt(lcstring, xChavePublicaEncDec, 0, 3, 3)
+Endfunc
+
+Function DesCriptografar
+	Lparameters lcstring
+
+	Return decrypt(ALLTRIM(lcstring),iif(alltrim(UPPER(xChavePublicaEncDec)) == 'DEUERRO', 'NotDecryptSorry', xChavePublicaEncDec), 0, 3, 3)
+Endfunc

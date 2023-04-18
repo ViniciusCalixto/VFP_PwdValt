@@ -7,6 +7,8 @@ Endfunc
 
 Procedure Sair
 	*On Shutdown
+	CLOSE DATABASES ALL 
+	
 	Clear Events
 	Close All
 	Quit
@@ -43,16 +45,22 @@ Endproc
 Function GerarCaracteresAleatorios
 	Lparameters lnQTDChar
 
-	lnQTDChar = Iif(Upper(Alltrim(Vartype(lnQTDChar))) == 'N' and lnQTDChar > 0, lnQTDChar, 1)
+	lnQTDChar = Iif(Upper(Alltrim(Vartype(lnQTDChar))) == 'N' And lnQTDChar > 0, lnQTDChar, 1)
 
 	Local m.lcString, m.lnPassLength
 	m.lcString 		= ""
 	m.lnPassLength 	= lnQTDChar
-
-	For i = 1 To lnPassLength
-		m.lnRandom = Rand() * 94 + 33
-		m.lcString = m.lcString + Chr(m.lnRandom)
+	For j = 1 To Int((Rand(-1)*2000/50)*100)
+		Wait Window 'Calculando caracteres, para gerar a novo senha, aguarde!' Nowait
+		For i = 1 To lnPassLength
+			m.lnRandom = Rand() * 94 + 33
+			If Inlist(Chr(m.lnRandom), [`], '~', '+', '*', "}","{","[","]",["],['],[^])
+				i = i - 1
+			Else
+				m.lcString = m.lcString + Chr(m.lnRandom)
+			Endif
+		Endfor
 	Endfor
-
+	Wait Clear
 	Return lcString
 Endfunc
