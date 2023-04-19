@@ -2,8 +2,8 @@ SET SAFETY off
 
 Local m.lcCaminho
 WAIT WINDOW "COMPILANDO, AGUARDE..." nowait
-m.lcCaminho = 'c:\vfpcalixto\vfp_geradordesenhas\'
-m.lcCaminhoDestino = 'd:\vfpcalixto\vfp_geradordesenhas\'
+m.lcCaminho = 'c:\vfpcalixto\VFP_PwdValt\'
+m.lcCaminhoDestino = 'd:\vfpcalixto\VFP_PwdValt\'
 
 If File(Addbs(m.lcCaminho) + 'cofredesenhas.exe')
 	Delete File (Addbs(m.lcCaminho) + 'cofredesenhas.exe')

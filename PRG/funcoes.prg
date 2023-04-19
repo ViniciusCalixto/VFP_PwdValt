@@ -7,7 +7,7 @@ Endfunc
 
 Procedure Sair
 	*On Shutdown
-	CLOSE DATABASES ALL 
+	*CLOSE DATABASES ALL 
 	
 	Clear Events
 	Close All

@@ -1,6 +1,6 @@
 *       *********************************************************
 *       *                                                         
-*       * 04/02/23          MENUPRINCIPAL.MPR           23:19:10  
+*       * 04/18/23          MENUPRINCIPAL.MPR           20:49:25  
 *       *                                                         
 *       *********************************************************
 *       *                                                         
@@ -26,14 +26,14 @@
 SET SYSMENU TO
 SET SYSMENU AUTOMATIC
 
-DEFINE PAD _6l11dz7wa OF _MSYSMENU PROMPT "\<Cadastros" COLOR SCHEME 3 ;
+DEFINE PAD _6lh18mrvh OF _MSYSMENU PROMPT "\<Cadastros" COLOR SCHEME 3 ;
 	KEY ALT+C, ""
-DEFINE PAD _6l11dz7wb OF _MSYSMENU PROMPT "\<Sair" COLOR SCHEME 3 ;
+DEFINE PAD _6lh18mrvi OF _MSYSMENU PROMPT "\<Sair" COLOR SCHEME 3 ;
 	KEY ALT+S, ""
-ON PAD _6l11dz7wa OF _MSYSMENU ACTIVATE POPUP cadastros
-ON SELECTION PAD _6l11dz7wb OF _MSYSMENU ;
-	DO _6l11dz7wc ;
-	IN LOCFILE("VFP_GERADORDESENHAS\MENUPRINCIPAL" ,"MPX;MPR|FXP;PRG" ,"WHERE is MENUPRINCIPAL?")
+ON PAD _6lh18mrvh OF _MSYSMENU ACTIVATE POPUP cadastros
+ON SELECTION PAD _6lh18mrvi OF _MSYSMENU ;
+	DO _6lh18mrvj ;
+	IN LOCFILE("VFP_PWDVALT\MENUPRINCIPAL" ,"MPX;MPR|FXP;PRG" ,"WHERE is MENUPRINCIPAL?")
 
 DEFINE POPUP cadastros MARGIN RELATIVE SHADOW COLOR SCHEME 4
 DEFINE BAR 1 OF cadastros PROMPT "\<Nova Aplicação"
@@ -41,7 +41,7 @@ DEFINE BAR 1 OF cadastros PROMPT "\<Nova Aplicação"
 
 *       *********************************************************
 *       *                                                         
-*       * _6L11DZ7WC  ON SELECTION PAD                            
+*       * _6LH18MRVJ  ON SELECTION PAD                            
 *       *                                                         
 *       * Procedure Origin:                                       
 *       *                                                         
@@ -52,7 +52,7 @@ DEFINE BAR 1 OF cadastros PROMPT "\<Nova Aplicação"
 *       *                                                         
 *       *********************************************************
 *
-PROCEDURE _6l11dz7wc
+PROCEDURE _6lh18mrvj
 If FecharSistema()
 	Sair()
 Endif
