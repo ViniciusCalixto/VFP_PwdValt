@@ -88,13 +88,14 @@ Endproc
 Procedure SetarVariaveisPublicas
 	setarVariaveisDarkMode()
 	chaveencrydecry()
-	Public xNomeUsuario, xSobreUsuario, xlogin, xEmailLogin, xLoginAtivo
-
-	xLoginAtivo		= .F.
-	xNomeUsuario  	= 'Padrão'
-	xSobreUsuario 	= ''
-	xlogin			= 'padrao'
-	xEmailLogin 	= 'padrao@padrao.com'
+	Public xNomeUsuario, xSobreUsuario, xlogin, xEmailLogin, xLoginAtivo, xPk_padraoUsuario
+	
+	xPk_padraoUsuario 	= ''
+	xLoginAtivo			= .F.
+	xNomeUsuario  		= 'Padrão'
+	xSobreUsuario 		= ''
+	xlogin				= 'padrao'
+	xEmailLogin 		= 'padrao@padrao.com'
 
 Endproc
 
