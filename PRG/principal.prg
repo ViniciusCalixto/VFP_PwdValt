@@ -87,8 +87,10 @@ Endproc
 
 Procedure SetarVariaveisPublicas
 	setarVariaveisDarkMode()
-	chaveencrydecry()
+	*chaveencrydecry()
 	Public xNomeUsuario, xSobreUsuario, xlogin, xEmailLogin, xLoginAtivo, xPk_padraoUsuario
+	Public xChavePublicaEncDec
+	xChavePublicaEncDec = 'NotDecryptSorry_'
 	
 	xPk_padraoUsuario 	= ''
 	xLoginAtivo			= .F.
@@ -104,6 +106,8 @@ Procedure setarVariaveisDarkMode
 		xForeColor, xMouseEnterBackColor, xBackColorForm, ;
 		xBorderColorLine, xBackColorScreen, ;
 		xDisabledForeColor, xDisabledBackColor, xBorderColorLineText
+		
+	
 
 	*
 	xDarkMode = File(Addbs(Sys(2003)) + 'DarkMode.txt')
@@ -138,8 +142,7 @@ ENDPROC
 
 Procedure chaveEncrydecry
 	Public xChavePublicaEncDec
-
-	xChavePublicaEncDec = 'DeuErro'
+	xChavePublicaEncDec = 'NotDecryptSorry_'	
 
 	Try
 		xChavePublicaEncDec = ALLTRIM(Filetostr(Addbs(Sys(2003)) + 'songrim.dll'))
@@ -156,5 +159,5 @@ Endfunc
 Function DesCriptografar
 	Lparameters lcstring
 
-	Return decrypt(ALLTRIM(lcstring),iif(alltrim(UPPER(xChavePublicaEncDec)) == 'DEUERRO', 'NotDecryptSorry', xChavePublicaEncDec), 0, 3, 3)
+	Return decrypt(ALLTRIM(lcstring),xChavePublicaEncDec, 0, 3, 3)
 Endfunc
