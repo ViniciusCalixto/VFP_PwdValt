@@ -1,36 +1,7 @@
-*!*	Clear
-
-*!*	TEXT TO lcCharImprimiveis
-*!*	-------------------------------------------------------------------
-*!*	|  Caracteres imprimiveis [ASCII De: 33 a 126] :
-*!*	|	! " # $ % & ' ( ) * + , - . /
-*!*	|	: ; < = > ? @
-*!*	|	0 1 2 3 4 5 6 7 8 9
-*!*	|	[ \ ] ^ _ ` { | } ~
-*!*	|	A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
-*!*	|	a b c d e f g h i j k l m n o p q r s t u v w x y z
-*!*	-------------------------------------------------------------------
-
-*!*	ENDTEXT
-
-
-*!*	Local m.lcString, m.lnPassLength
-*!*	m.lcString 		= ""
-*!*	m.lnPassLength 	= 15
-*!*	If lnPassLength >= 10 And lnPassLength <= 95
-*!*		For i = 1 To lnPassLength
-*!*			m.lnRandom = Rand() * 94 + 33
-*!*			m.lcString = m.lcString + Chr(m.lnRandom)
-*!*		Endfor
-*!*	Else
-*!*		Messagebox("Quantidade minimo e maximo: De 10 à 95 caracteres!", 48,'Atenção!')
-*!*	Endif
-*!*	?lcString
-
 _Screen.Visible 	= .F.
-_Screen.windowstate = 2
-_Screen.minWidth 	= 720
-_Screen.minheight	= 96
+_Screen.WindowState = 2
+_Screen.MinWidth 	= 720
+_Screen.MinHeight	= 96
 _Screen.Caption		= 'PWD Vault'
 _Screen.Icon = 'IMG\ICO\KEYS.ICO'
 SetarFuncoes()
@@ -66,7 +37,7 @@ Procedure SetarFuncoes
 	Set Carry Off && New records are blank
 	Set Reprocess To 25 && Number of times to attempt locking
 	Set Sysmenu Off
-	SET CLOCK status
+	Set Clock Status
 
 	Public c_netpath, c_root
 	c_netpath	= Sys(5)+Curdir()
@@ -89,15 +60,16 @@ Procedure SetarVariaveisPublicas
 	setarVariaveisDarkMode()
 	*chaveencrydecry()
 	Public xNomeUsuario, xSobreUsuario, xlogin, xEmailLogin, xLoginAtivo, xPk_padraoUsuario
-	Public xChavePublicaEncDec
+	Public xChavePublicaEncDec, xVersao
 	xChavePublicaEncDec = 'NotDecryptSorry_'
-	
+
 	xPk_padraoUsuario 	= ''
 	xLoginAtivo			= .F.
 	xNomeUsuario  		= 'Padrão'
 	xSobreUsuario 		= ''
 	xlogin				= 'padrao'
 	xEmailLogin 		= 'padrao@padrao.com'
+	xVersao				= '1.00.0001'
 
 Endproc
 
@@ -106,8 +78,8 @@ Procedure setarVariaveisDarkMode
 		xForeColor, xMouseEnterBackColor, xBackColorForm, ;
 		xBorderColorLine, xBackColorScreen, ;
 		xDisabledForeColor, xDisabledBackColor, xBorderColorLineText
-		
-	
+
+
 
 	*
 	xDarkMode = File(Addbs(Sys(2003)) + 'DarkMode.txt')
@@ -116,10 +88,10 @@ Procedure setarVariaveisDarkMode
 	xBackColor 	 			= Iif(xDarkMode, '50,50,50', '223,95,95')
 	xBorderColor 			= Iif(xDarkMode, '50,50,50', '223,95,95')
 	xForeColor	 			= Iif(xDarkMode, '255,255,255', '0,0,0')
-	
+
 	xDisabledBackColor 		= Iif(xDarkMode, '100,100,100', '235,152,152') &&'192,192,192'
 	xDisabledForeColor	 	= Iif(xDarkMode, '192,192,192', '128,128,128')
-	
+
 	xMouseEnterBackColor 	= Iif(xDarkMode, '192,192,192','235,152,152')
 
 	xBackColorForm 			= Iif(xDarkMode, '80,80,80', '255,255,255')
@@ -138,26 +110,26 @@ Procedure errHandler
 
 	Sair()
 
-ENDPROC
+Endproc
 
 Procedure chaveEncrydecry
 	Public xChavePublicaEncDec
-	xChavePublicaEncDec = 'NotDecryptSorry_'	
+	xChavePublicaEncDec = 'NotDecryptSorry_'
 
 	Try
-		xChavePublicaEncDec = ALLTRIM(Filetostr(Addbs(Sys(2003)) + 'songrim.dll'))
+		xChavePublicaEncDec = Alltrim(Filetostr(Addbs(Sys(2003)) + 'songrim.dll'))
 	Catch
 	Endtry
-ENDPROC
+Endproc
 
 Function Criptografar
 	Lparameters lcstring
 
-	Return Encrypt(lcstring, xChavePublicaEncDec, 0, 3, 3)
+	Return Encrypt(Alltrim(lcstring), xChavePublicaEncDec, 0, 3, 3)
 Endfunc
 
 Function DesCriptografar
 	Lparameters lcstring
 
-	Return decrypt(ALLTRIM(lcstring),xChavePublicaEncDec, 0, 3, 3)
+	Return decrypt(Alltrim(lcstring), xChavePublicaEncDec, 0, 3, 3)
 Endfunc
