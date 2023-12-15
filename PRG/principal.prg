@@ -1,7 +1,7 @@
 _Screen.Visible 	= .F.
 _Screen.WindowState = 2
-_Screen.MinWidth 	= 720
-_Screen.MinHeight	= 96
+_Screen.MinWidth 	= 955
+_Screen.MinHeight	= 722
 _Screen.Caption		= 'PWD Vault'
 _Screen.Icon = 'IMG\ICO\KEYS.ICO'
 SetarFuncoes()
@@ -69,7 +69,7 @@ Procedure SetarVariaveisPublicas
 	xSobreUsuario 		= ''
 	xlogin				= 'padrao'
 	xEmailLogin 		= 'padrao@padrao.com'
-	xVersao				= '1.00.0001'
+	xVersao				= '1.00.0002'
 
 Endproc
 
