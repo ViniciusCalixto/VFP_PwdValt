@@ -10,7 +10,10 @@ Procedure AtualizarLabel
 Endproc
 
 Function CompactarArquivos
-	Lparameters loForm, lcCaminhoArquivoZip
+	Lparameters loForm, lcCaminhoArquivoZip, lcPassword
+
+	lcPassword = IIF(UPPER(ALLTRIM(VARTYPE(	lcPassword))) == 'C', '-p'+ALLTRIM(lcPassword), '')
+	
 	Local lnRetorno, lcBKPFILETemp
 	lnRetorno  		= 0
 	lcBKPFILETemp 	= Addbs(Sys(2023)) + Justfname(lcCaminhoArquivoZip)
@@ -27,24 +30,27 @@ Function CompactarArquivos
 				[Caminho: ] + Alltrim(Addbs(Alltrim(crCaminhoArquivos.FullDirFile))) + Chr(13) + ;
 				[Arquivo: ] + Alltrim(crCaminhoArquivos.NomeArquivo) Nowait
 
-			AtualizarLabel(loForm, "Compactando: " + Alltrim(crCaminhoArquivos.NomeArquivo))
+			AtualizarLabel(loForm, "Compactando: " + Alltrim(crCaminhoArquivos.NomeArquivo))			
 
 			If File(lcFileCorrente)
-				lcComando = '"'+Addbs(Getenv("ProgramFiles(x86)"))+ '7-Zip\' + '7z.exe" a -tzip -mx9 -p123 -spf2 "' + lcBKPFILETemp + '" "' + lcFileCorrente + '"'
-				lnRetorno = ExecutarSemRestricoes(lcComando)
+				***Help Command 7z
+				***https://axelstudios.github.io/7z/#!/
+				lcComando = '"'+Addbs(Getenv("ProgramFiles(x86)"))+ '7-Zip\' + '7z.exe" a -tzip -mx9 '+lcPassword+' -spf2 "' + lcBKPFILETemp + '" "' + lcFileCorrente + '"'
+				lnRetorno = ExecutarSemRestricoes(lcComando, '', .t., 0)
 
 				If lnRetorno <> 0
 					Messagebox("Ocorreu um erro ao realizar o [B A C K U P]"+Chr(13)+;
-						"Error_CODE: " + Alltrim(Transform(lnRetorno)),48,_Screen.Caption)
-					Messagebox(lcComando )
+						"Error_CODE: " + Alltrim(Transform(lnRetorno)),48,_Screen.Caption)					
 					Rename lcCaminhoArquivoZip To "ERROR_"+lcCaminhoArquivoZip
 					Exit
 				Endif
-			Endif
+			ENDIF
+			PreencherProgresso(loForm)
+			_sleep(90)
 		Endscan
 
-		If lnRetorno == 0 And File(lcBKPFILETemp)			
-			lnRetorno = CopiarBkpParaDestino(lcBKPFILETemp, Upper(lcCaminhoArquivoZip))
+		If lnRetorno == 0 And File(lcBKPFILETemp)
+			lnRetorno = CopiarBkpParaDestino(loForm, lcBKPFILETemp, Upper(lcCaminhoArquivoZip))
 		Endif
 
 		Wait Clear
@@ -53,7 +59,7 @@ Function CompactarArquivos
 Endfunc
 
 Function CopiarBkpParaDestino
-	Lparameters lcCaminhoArquivoZip_Origem, lcCaminhoArquivoZip_Destino
+	Lparameters loForm, lcCaminhoArquivoZip_Origem, lcCaminhoArquivoZip_Destino
 	Local lnRetorno, lcJustDir, lcJustFile
 	lnRetorno  = 0
 	lcJustDir  = Justpath(Alltrim(lcCaminhoArquivoZip_Destino))
@@ -63,15 +69,15 @@ Function CopiarBkpParaDestino
 		[Caminho: ] + lcJustDir   + Chr(13) + ;
 		[Arquivo: ] + lcJustFile  + Chr(13) + ;
 		[Aguarde...] Nowait
-
 	Try
 		If File(lcCaminhoArquivoZip_Origem)
 			Copy File (lcCaminhoArquivoZip_Origem) To (lcCaminhoArquivoZip_Destino)
 		Endif
-
 	Catch To loError
 		lnRetorno = loError
 	Endtry
+	PreencherProgresso(loForm)
+
 	Try
 		If File(lcCaminhoArquivoZip_Origem)
 			Wait Window [L I M P A N D O  T E M P] + Chr(13) + ;
@@ -116,12 +122,33 @@ Function CopiarBkpParaDestino
 		*!*						[UserValue: ] 		+ Alltrim(lRetorno.UserValue), ;
 		*!*						48, "Atenção - "+_Screen.Caption)
 	Endtry
+	PreencherProgresso(loForm)
+
 	Wait Clear
 	Return lnRetorno
-Endfun
+Endfunc
+
+Procedure ConfigurarProgresso
+	Lparameters loForm
+	Local lnMaxProg
+	lnMaxProg = 2 && Copiar + Limpar + QTDArquivos
+
+	If Used("crCaminhoArquivos")
+		lnMaxProg = lnMaxProg + Reccount("crCaminhoArquivos")
+	ENDIF
+	loForm.progressbar.ctlMaximum 	= lnMaxProg
+	loForm.progressbar.ctlMinimum 	= 0
+	loForm.progressbar.ctlvalue 	= 0
+Endproc
+
+Procedure PreencherProgresso
+	Lparameters loForm	
+	loForm.progressbar.ctlIncrement(1)
+	loForm.progressbar.refresh()	
+Endproc
 
 Function SepararArquivos
-	Lparameters lcPastaBKP
+	Lparameters loForm, lcPastaBKP
 	Local lnRetorno
 	lnRetorno = 0
 	If !Used("crCaminhoArquivos")
@@ -150,6 +177,7 @@ Function SepararArquivos
 			Endif
 			Wait Clear
 		Next
+		ConfigurarProgresso(loForm)
 	Else
 		lnRetorno = 1
 	Endif

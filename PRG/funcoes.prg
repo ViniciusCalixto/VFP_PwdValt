@@ -270,3 +270,16 @@ Function apiShellExecuteEx
 Endfunc
 
 ******************************************************************************
+* Program: IsExeRunning
+* Purpose: to determine if an EXE is already running, and terminate it if directed so.
+PROCEDURE IsExeRunning
+	PARAMETERS tcName
+	local loLocator, loWMI, loProcesses, loProcess
+	loLocator = createobject('WBEMScripting.SWBEMLocator')
+	loWMI = loLocator.ConnectServer()
+	loWMI.Security_.ImpersonationLevel = 3 && Impersonate
+
+	loProcesses = loWMI.ExecQuery([SELECT * FROM Win32_Process WHERE Name = '] + tcName + ['])
+
+	return loProcesses.count
+endproc

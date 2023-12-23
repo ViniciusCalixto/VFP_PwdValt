@@ -51,6 +51,7 @@ Procedure SetarFuncoes
 	Set Procedure To ComfiguracoesDarkMode.prg Additive
 	SET PROCEDURE TO Backup.prg additive
 
+	*Set Library To vfp2c32.fll Additive
 	*Set Library To vfpencryption.fll Additive
 	*Set Library To vfpencryption71.fll Additive
 Endproc

@@ -1,0 +1,307 @@
+AAverage	
+AbortUrlDownloadToFileEx	
+ADesktopArea	
+ADesktops	
+ADialUpConnections	
+ADirectoryInfo	
+ADirEx	
+ADisplayDevices	
+ADriveInfo	
+AErrorEx	
+AFHandlesEx	
+AFileAttributes	
+AFileAttributesEx	
+AHeapBlocks	
+AIPAddresses	
+AllocHGlobal	
+AllocMem
+AllocMemTo
+AMax
+AMemBlocks
+AMin
+ANetFiles
+ANetServers
+APrinterForms
+APrintersEx
+APrinterTrays
+APrintJobs
+AProcesses
+AProcessHeaps
+AProcessModules
+AProcessThreads
+ARegistryKeys
+ARegistryValues
+AResolutions
+AResourceLanguages
+AResourceNames
+AResourceTypes
+AServices
+AServiceStatus
+ASplitStr
+ASQLDataSources
+ASQLDrivers
+ASum
+AsyncInvoke
+ATimeZones
+AWindowProps
+AWindows
+AWindowsEx
+AWindowStations
+BindEventsEx
+CancelFileChange
+CancelRegistryChange
+CenterWindowEx
+ChangeSQLDataSource
+CloseRegistryKey
+CloseServiceHandle
+CLSIDFromProgID
+CLSIDFromString
+Colors2RGB
+CompactMem
+CompareFileTimes
+ContinueService
+ControlService
+CopyFileEx
+CreateCallbackFunc
+CreateGuid
+CreateRegistryKey
+CreateSQLDataSource
+Decimals
+DeleteDirectory
+DeleteFileEx
+DeleteRegistryKey
+DeleteSQLDataSource
+DestroyCallbackFunc
+Double2DT
+Double2Str
+DT2Double
+DT2FT
+DT2ST
+DT2Timet
+DT2UTC
+ExpandEnvironmentStrings
+FChSizeEx
+FCloseEx
+FCreateEx
+FEoFEx
+FFlushEx
+FGetsEx
+FHandleEx
+FindFileChange
+FindRegistryChange
+Float2Str
+FLockFile
+FLockFileEx
+FOpenEx
+FormatMessageEx
+FPutsEx
+FReadEx
+FreeHGlobal
+FreeMem
+FreePMem
+FreeRefArray
+FSeekEx
+FT2DT
+FUnlockFile
+FUnlockFileEx
+FWriteEx
+GetCursorPosEx
+GetFileAttributes
+GetFileOwner
+GetFileSize
+GetFileTimes
+GetIUnknown
+GetLongPathName
+GetOpenFileName
+GetSaveFileName
+GetServerTime
+GetShortPathName
+GetSystemDirectory
+GetSystemTime
+GetWindowRectEx
+GetWindowsDirectory
+GetWindowTextEx
+IcmpPing
+InitVFP2C32
+Int64_Add
+Int64_Div
+Int64_Mod
+Int64_Mul
+Int64_Sub
+Invoke
+Ip2MacAddress
+IsEqualGuid
+LockHGlobal
+Long2Str
+MarshalArrayCharArray
+MarshalArrayCString
+MarshalArrayDouble
+MarshalArrayFloat
+MarshalArrayInt
+MarshalArrayLogical
+MarshalArrayShort
+MarshalArrayUInt
+MarshalArrayUShort
+MarshalArrayWCharArray
+MarshalArrayWString
+MarshalCursorCharArray
+MarshalCursorCString
+MarshalCursorDouble
+MarshalCursorFloat
+MarshalCursorInt
+MarshalCursorLogical
+MarshalCursorShort
+MarshalCursorUInt
+MarshalCursorUShort
+MarshalCursorWCharArray
+MarshalCursorWString
+MoveFileEx
+Num2Binary
+OnLoad
+OnUnload	
+OpenRegistryKey	
+OpenService	
+PauseService	
+PG_ByteA2Str	
+PG_Str2ByteA	
+ProgIDFromCLSID	
+ReadBytes	
+ReadChar	
+ReadCharArray	
+ReadCString	
+ReadDouble	D
+ReadFloat	D
+ReadInt	D
+ReadInt64AsDouble	
+ReadInt8	D
+ReadLogical	
+ReadPChar	
+ReadPCString	
+ReadPDouble	D
+ReadPFloat	D
+ReadPInt	D
+ReadPInt64AsDouble	
+ReadPInt8	D
+ReadPLogical	
+ReadPointer	
+ReadPPointer	
+ReadProcessMemoryEx	
+ReadPShort	D
+ReadPUInt	
+ReadPUInt64AsDouble	
+ReadPUInt8	D
+ReadPUShort	D
+ReadPWString	
+ReadRegistryKey	
+ReadShort	D
+ReadUInt	
+ReadUInt64AsDouble	
+ReadUInt8	D
+ReadUShort	D
+ReadWCharArray	
+ReadWString	
+ReAllocHGlobal	
+ReAllocMem	
+RegisterActiveObject	
+RegisterObjectAsFileMoniker	
+RegistryHiveToObject	
+RegistryValuesToObject	
+ResolveHostToIp
+RevokeActiveObject
+RGB2Colors
+SetFileAttributes
+SetFileTimes
+SetSystemTime
+SetSystemTimeEx
+SHBrowseFolder
+SHCopyFiles
+SHDeleteFiles
+SHMoveFiles
+Short2Str
+SHRenameFiles
+SHSpecialFolder
+SizeOfMem
+SQLExecEx
+SQLGetPropEx
+SQLSetPropEx
+ST2DT
+StartService
+StopService
+Str2Double
+Str2Float
+Str2Long
+Str2Short
+Str2ULong
+Str2UShort
+StringFromCLSID
+SyncToServerTime
+SyncToSNTPServer
+Timet2DT
+ULong2Str
+UnBindEventsEx
+UnlockHGlobal
+UnMarshalArrayCharArray
+UnMarshalArrayCString
+UnMarshalArrayDouble
+UnMarshalArrayFloat
+UnMarshalArrayInt
+UnMarshalArrayLogical
+UnMarshalArrayShort
+UnMarshalArrayUInt
+UnMarshalArrayUShort
+UnMarshalArrayWCharArray
+UnMarshalArrayWString
+UnMarshalCursorCharArray
+UnMarshalCursorCString
+UnMarshalCursorDouble
+UnMarshalCursorFloat
+UnMarshalCursorInt
+UnMarshalCursorLogical
+UnMarshalCursorShort
+UnMarshalCursorUInt
+UnMarshalCursorUShort
+UnMarshalCursorWCharArray
+UnMarshalCursorWString
+UrlDownloadToFileEx
+UShort2Str
+UTC2DT
+ValidateMem
+Value2Variant
+Variant2Value
+VFP2CSys
+WriteBytes
+WriteChar	D
+WriteCharArray	
+WriteCString	
+WriteDouble	D
+WriteFloat	D
+WriteInt	D
+WriteInt64	
+WriteInt8	D
+WriteLogical	
+WritePChar	D
+WritePCString	
+WritePDouble	D
+WritePFloat	D
+WritePInt	D
+WritePInt64	
+WritePInt8	D
+WritePLogical	
+WritePointer	D
+WritePPointer	D
+WritePShort	D
+WritePUInt	D
+WritePUInt64	
+WritePUInt8	D
+WritePUShort	D
+WritePWChar	
+WritePWString	
+WriteRegistryKey	
+WriteShort	D
+WriteUInt	D
+WriteUInt64	
+WriteUInt8	D
+WriteUShort	D
+WriteWChar
+WriteWCharArray
+WriteWString
