@@ -70,7 +70,7 @@ Procedure SetarVariaveisPublicas
 	xSobreUsuario 		= ''
 	xlogin				= 'padrao'
 	xEmailLogin 		= 'padrao@padrao.com'
-	xVersao				= '1.00.0002'
+	xVersao				= '1.00.0003'
 
 Endproc
 

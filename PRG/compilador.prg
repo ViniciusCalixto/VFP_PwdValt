@@ -11,7 +11,7 @@ Endif
 
 BUILD EXE (Addbs(m.lcCaminho) + 'cofredesenhas.exe') From Addbs(m.lcCaminho) + 'cofredesenhas.pjx'
 
-IF INLIST(MESSAGEBOX('Deseja copiar para unidade "D"?',36,'Atenção', 2000), 6,1)
+IF INLIST(MESSAGEBOX('Deseja copiar para unidade "D"?',36,'Atenção'), 6,1)
 	COPY FILE Addbs(m.lcCaminho) + 'cofredesenhas.exe' TO Addbs(m.lcCaminhoDestino) + 'cofredesenhas.exe'
 endif
 MESSAGEBOX("COMPILADO!", 64,'Atenção!',2000)
