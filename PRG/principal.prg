@@ -61,16 +61,18 @@ Procedure SetarVariaveisPublicas
 	setarVariaveisDarkMode()
 	*chaveencrydecry()
 	Public xNomeUsuario, xSobreUsuario, xlogin, xEmailLogin, xLoginAtivo, xPk_padraoUsuario
-	Public xChavePublicaEncDec, xVersao
+	Public xChavePublicaEncDec, xVersao, xFotoUsuario
 	xChavePublicaEncDec = 'NotDecryptSorry_'
 
 	xPk_padraoUsuario 	= ''
 	xLoginAtivo			= .F.
+	xFotoUsuario		= ''
 	xNomeUsuario  		= 'Padrão'
 	xSobreUsuario 		= ''
 	xlogin				= 'padrao'
 	xEmailLogin 		= 'padrao@padrao.com'
 	xVersao				= '1.00.0003'
+
 
 Endproc
 
