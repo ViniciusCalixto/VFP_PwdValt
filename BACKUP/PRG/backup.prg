@@ -12,8 +12,8 @@ Endproc
 Function CompactarArquivos
 	Lparameters loForm, lcCaminhoArquivoZip, lcPassword
 
-	lcPassword = IIF(UPPER(ALLTRIM(VARTYPE(	lcPassword))) == 'C', '-p'+ALLTRIM(lcPassword), '')
-	
+	lcPassword = Iif(Upper(Alltrim(Vartype(	lcPassword))) == 'C', '-p'+Alltrim(lcPassword), '')
+
 	Local lnRetorno, lcBKPFILETemp
 	lnRetorno  		= 0
 	lcBKPFILETemp 	= Addbs(Sys(2023)) + Justfname(lcCaminhoArquivoZip)
@@ -30,21 +30,30 @@ Function CompactarArquivos
 				[Caminho: ] + Alltrim(Addbs(Alltrim(crCaminhoArquivos.FullDirFile))) + Chr(13) + ;
 				[Arquivo: ] + Alltrim(crCaminhoArquivos.NomeArquivo) Nowait
 
-			AtualizarLabel(loForm, "Compactando: " + Alltrim(crCaminhoArquivos.NomeArquivo))			
+			AtualizarLabel(loForm, "Compactando: " + Alltrim(crCaminhoArquivos.NomeArquivo))
 
 			If File(lcFileCorrente)
 				***Help Command 7z
 				***https://axelstudios.github.io/7z/#!/
-				lcComando = '"'+Addbs(Getenv("ProgramFiles(x86)"))+ '7-Zip\' + '7z.exe" a -tzip -mx9 '+lcPassword+' -spf2 "' + lcBKPFILETemp + '" "' + lcFileCorrente + '"'
-				lnRetorno = ExecutarSemRestricoes(lcComando, '', .t., 0)
+				Local lcDirEXE7z
+				lcDirEXE7z  = RetornarCaminho7zip()
+				If !Empty(lcDirEXE7z)
+					lcComando = '"' + lcDirEXE7z + '" a -tzip -mx9 '+lcPassword+' -spf2 "' + lcBKPFILETemp + '" "' + lcFileCorrente + '"'
+					lnRetorno = ExecutarSemRestricoes(lcComando, '', .T., 0)
 
-				If lnRetorno <> 0
+					If lnRetorno <> 0
+						Messagebox("Ocorreu um erro ao realizar o [B A C K U P]"+Chr(13)+;
+							"Error_CODE: " + Alltrim(Transform(lnRetorno)),48,_Screen.Caption)
+						Rename lcCaminhoArquivoZip To "ERROR_"+lcCaminhoArquivoZip
+						Exit
+					Endif
+				ELSE
+					lnRetorno = -1
 					Messagebox("Ocorreu um erro ao realizar o [B A C K U P]"+Chr(13)+;
-						"Error_CODE: " + Alltrim(Transform(lnRetorno)),48,_Screen.Caption)					
-					Rename lcCaminhoArquivoZip To "ERROR_"+lcCaminhoArquivoZip
+						"Recurso não foi localizado '7zip 32bits'",48,_Screen.Caption)
 					Exit
 				Endif
-			ENDIF
+			Endif
 			PreencherProgresso(loForm)
 			_sleep(90)
 		Endscan
@@ -82,7 +91,7 @@ Function CopiarBkpParaDestino
 		If File(lcCaminhoArquivoZip_Origem)
 			Wait Window [L I M P A N D O  T E M P] + Chr(13) + ;
 				[Aguarde...] Nowait
-			_Sleep(1000)
+			_sleep(1000)
 
 			Dimension larrFileDelete[1,1]
 			larrFileDelete[1,1] = ''
@@ -135,16 +144,16 @@ Procedure ConfigurarProgresso
 
 	If Used("crCaminhoArquivos")
 		lnMaxProg = lnMaxProg + Reccount("crCaminhoArquivos")
-	ENDIF
+	Endif
 	loForm.progressbar.ctlMaximum 	= lnMaxProg
 	loForm.progressbar.ctlMinimum 	= 0
 	loForm.progressbar.ctlvalue 	= 0
 Endproc
 
 Procedure PreencherProgresso
-	Lparameters loForm	
+	Lparameters loForm
 	loForm.progressbar.ctlIncrement(1)
-	loForm.progressbar.refresh()	
+	loForm.progressbar.Refresh()
 Endproc
 
 Function SepararArquivos
@@ -182,4 +191,32 @@ Function SepararArquivos
 		lnRetorno = 1
 	Endif
 	Return lnRetorno
+Endfunc
+
+Function RetornarCaminho7zip
+	Local lcDirEXE7z, lcTentativa1, lcTentativa2
+	lcDirEXE7z = ''
+
+	lcTentativa1 = Addbs(Getenv("ProgramFiles(x86)"))+ '7-Zip\' + '7z.exe'
+
+	*
+	lcTentativa2Aux = Justpath(Addbs(Sys(05) + Addbs(Sys(2003))))
+	lnVoltarDir = 1
+	lcQtdQuebras = Getwordcount(lcTentativa2Aux,'\')
+	lcTentativa2 = ''
+	For I = 1 To lcQtdQuebras - lnVoltarDir
+		lcTentativa2 = Addbs(lcTentativa2) + Getwordnum(lcTentativa2Aux, I, '\')
+	Endfor
+	lcTentativa2 = Addbs(lcTentativa2) + "Uteis\7z.exe"
+
+	*************
+	For I= 1 To 2
+		lcDirEXE7z  = ''
+		If File(Evaluate("lcTentativa"+Alltrim(Str(I))))
+			lcDirEXE7z = Evaluate("lcTentativa"+Alltrim(Str(I)))
+			Exit
+		Endif
+	Endfor
+
+	Return lcDirEXE7z
 Endfunc
