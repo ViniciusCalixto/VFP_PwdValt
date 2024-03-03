@@ -7,7 +7,7 @@ _Screen.Icon = 'IMG\ICO\KEYS.ICO'
 SetarFuncoes()
 SetarVariaveisPublicas()
 
-
+#Define _VERSAO_ '1.00.0004'
 
 *On Key Label Alt+F4 Do Sair
 On Shutdown Do Sair
@@ -71,7 +71,7 @@ Procedure SetarVariaveisPublicas
 	xSobreUsuario 		= ''
 	xlogin				= 'padrao'
 	xEmailLogin 		= 'padrao@padrao.com'
-	xVersao				= '1.00.0003'
+	xVersao				= _VERSAO_
 
 
 Endproc
